@@ -41,7 +41,7 @@
           reader.onload = (function(f) {
             return function(e) {
               var data = e.target.result.split(',')[1];
-              fetch('https://script.google.com/macros/s/AKfycbwhJDQK1PX6vppDrqJiMHsLrT40_PNXUjp0fyoeCt7QjQ54muUhfWTRKEUhgF4d-DlT/exec', {
+              fetch(https://script.google.com/macros/s/AKfycbz_IY2utKDMn85wv-T1JXt9eu7GGK67jI_U62Ieom9CkoHypwYiDKk-rMv31MQ4CngM/exec, {
                 method: 'POST',
                 body: JSON.stringify({ data: data, fileName: f.name }),
               })
