@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Festa Incrível</title>
+    <style>
+      body {
+        background-image: url('SUA_IMAGEM_DE_FUNDO_AQUI.jpg');
+        background-size: cover;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        color: #ffffff; /* Cor do texto */
+      }
+      h1 {
+        color: #ffcc00; /* Cor do título */
+      }
+      button {
+        background-color: #ffcc00; /* Cor do botão */
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      }
+      #status {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Bem-vindo à Festa Incrível!</h1>
+    <p>Envie suas fotos e vídeos abaixo:</p>
+    <input type="file" id="fileInput" accept="image/*,video/*" multiple>
+    <button onclick="uploadFiles()">Enviar</button>
+    <div id="status"></div>
+
+    <script>
+      function uploadFiles() {
+        var fileInput = document.getElementById('fileInput');
+        var files = fileInput.files;
+        for (var i = 0; i < files.length; i++) {
+          var file = files[i];
+          var reader = new FileReader();
+          reader.onload = (function(f) {
+            return function(e) {
+              var data = e.target.result.split(',')[1];
+              fetch('https://script.google.com/macros/s/AKfycbwhJDQK1PX6vppDrqJiMHsLrT40_PNXUjp0fyoeCt7QjQ54muUhfWTRKEUhgF4d-DlT/exec', {
+                method: 'POST',
+                body: JSON.stringify({ data: data, fileName: f.name }),
+              })
+                .then(response => response.text())
+                .then(url => {
+                  document.getElementById('status').innerHTML += 'Upload concluído: ' + f.name + '<br>';
+                });
+            };
+          })(file);
+          reader.readAsDataURL(file);
+        }
+      }
+    </script>
+  </body>
+</html>
